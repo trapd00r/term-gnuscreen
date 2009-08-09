@@ -1,0 +1,73 @@
+NAME
+    Term::GnuScreen - Control GNU screen via perl
+
+VERSION
+    Version 0.01
+
+SYNOPSIS
+    Term::GnuScreen provides a simple interface to control a GNU screen
+    session via its command line interface.
+
+        use Term::GnuScreen;
+
+        my $screen = Term::GnuScreen->new();
+        $screen->windowlist;
+        $screen->hardcopy('/tmp/my_hardcopy');
+
+METHODS
+    Term::GnuScreen implements all commands as stated in the texinfo
+    document shipped with GNU screen. To call a commands, it's send via GNU
+    screens -X paramter to the first running screen session and its current
+    window. You can change session and window with the according object
+    methods and construction paramters. Unless listed here, all remaining
+    arguments are handled over to screen.
+
+  hardcopy
+    Write a hardcopy of the current window to a temporary file and returns
+    the filename unless the filename is supplied as first argument.
+
+ERROR HANDLING
+    Simple dies in case screen -X did not return with a return value of
+    zero. The variable $!, STDERR or STDOUT (which seems to be more helpful
+    most times) are provided as error message for further investigation.
+
+AUTHOR
+    Mario Domgoergen, "<dom at math.uni-bonn.de>"
+
+BUGS
+    Please report any bugs or feature requests to "bug-term-gnuscreen at
+    rt.cpan.org", or through the web interface at
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Term-GnuScreen>. I will
+    be notified, and then you'll automatically be notified of progress on
+    your bug as I make changes.
+
+SUPPORT
+    You can find documentation for this module with the perldoc command.
+
+        perldoc Term::GnuScreen
+
+    You can also look for information at:
+
+    * RT: CPAN's request tracker
+        <http://rt.cpan.org/NoAuth/Bugs.html?Dist=Term-GnuScreen>
+
+    * AnnoCPAN: Annotated CPAN documentation
+        <http://annocpan.org/dist/Term-GnuScreen>
+
+    * CPAN Ratings
+        <http://cpanratings.perl.org/d/Term-GnuScreen>
+
+    * Search CPAN
+        <http://search.cpan.org/dist/Term-GnuScreen>
+
+ACKNOWLEDGEMENTS
+    screen
+
+COPYRIGHT & LICENSE
+    Copyright 2009 Mario Domgoergen, all rights reserved.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
+    1; # End of Term::GnuScreen
+
