@@ -1,0 +1,7 @@
+.cvsignore
+Build
+META.yml
+Makefile.PL
+Term-GnuScreen-*.tar.gz
+_build/
+blib/
