@@ -22,14 +22,19 @@ METHODS
     methods and construction paramters. Unless listed here, all remaining
     arguments are handled over to screen.
 
+  send_command
+    This command is the working horse of Term::GnuScreen. It simply build
+    the command line to call and add all the supplied arguments to screens
+    -X.
+
   hardcopy
     Write a hardcopy of the current window to a temporary file and returns
     the filename unless the filename is supplied as first argument.
 
 ERROR HANDLING
     Simple dies in case screen -X did not return with a return value of
-    zero. The variable $!, STDERR or STDOUT (which seems to be more helpful
-    most times) are provided as error message for further investigation.
+    zero. Either $!, STDERR or STDOUT (which seems to be more helpful most
+    times) are provided as error message for further investigation.
 
 AUTHOR
     Mario Domgoergen, "<dom at math.uni-bonn.de>"
@@ -68,6 +73,4 @@ COPYRIGHT & LICENSE
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
-
-    1; # End of Term::GnuScreen
 

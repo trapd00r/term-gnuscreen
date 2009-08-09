@@ -114,6 +114,9 @@ can change session and window with the according object methods and
 construction paramters. Unless listed here, all remaining arguments are
 handled over to screen.
 
+The five commands bind, meta, chdir, exec and umask are prefixed with
+a I<s> to distinguish them from the built-ins with the same name.
+
 =head2 send_command
 
 This command is the working horse of Term::GnuScreen. It simply build
