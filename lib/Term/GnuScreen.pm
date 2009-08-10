@@ -114,8 +114,9 @@ can change session and window with the according object methods and
 construction paramters. Unless listed here, all remaining arguments are
 handled over to screen.
 
-The five commands bind, meta, chdir, exec and umask are prefixed with
-a I<s> to distinguish them from the built-ins with the same name.
+The five commands bind, meta, chdir, exec and umask are prefixed with a
+I<s> ( sbind, smeta, schdir, sexec and sumas ) to distinguish them from
+the built-ins with the same name.
 
 =head2 send_command
 
@@ -127,6 +128,21 @@ the command line to call and add all the supplied arguments to screens -X.
 Write a hardcopy of the current window to a temporary file and returns
 the filename unless the filename is supplied as first argument.
 
+=head2 session
+
+Change the default session for all further commands.
+
+=head2 window
+
+Preselect a window to send a command via the a specific window. If
+undefined all commands are executed in the context of the current
+window. See I<-p> option for a further discussion of this argument.
+
+=head2 executable
+
+Return or set the screen binary to call. Defaults to the binary found
+by File::Which::which.
+
 =head1 ERROR HANDLING
 
 Simple dies in case screen -X did not return with a return value of
@@ -137,19 +153,26 @@ most times) are provided as error message for further investigation.
 
 Mario Domgoergen, C<< <dom at math.uni-bonn.de> >>
 
-=head1 BUGS
+=head1 BUGS AND LIMITATIONS
 
-Please report any bugs or feature requests to C<bug-term-gnuscreen at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Term-GnuScreen>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+It seems not to be possible to question a specific screen session
+about its state, so this module basically just sends commands to a
+screen session without knowing if the command succeeded or was at least
+syntactically corrent.
 
+This module needs a lot more testing.
+
+Please report any bugs or feature requests to
+C<bug-term-gnuscreen at rt.cpan.org>, or through the web interface
+at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Term-GnuScreen>.
+I will be notified, and then you'll automatically be notified of progress
+on your bug as I make changes.
 
 =head1 SUPPORT
 
 You can find documentation for this module with the perldoc command.
 
     perldoc Term::GnuScreen
-
 
 You can also look for information at:
 
@@ -177,7 +200,6 @@ L<http://search.cpan.org/dist/Term-GnuScreen>
 =head1 ACKNOWLEDGEMENTS
 
 L<screen>
-
 
 =head1 COPYRIGHT & LICENSE
 
