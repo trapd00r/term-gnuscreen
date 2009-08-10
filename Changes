@@ -1,5 +1,12 @@
 Revision history for Term-GnuScreen
 
+0.02	Mo 10. Aug 11:59:36 CEST 2009
+	clarify documentation on the five built-ins
+	added construction parameter 'create'
+	window defaults to 0 (documentation changed accordingly)
+	added check for defindness of session and window (especially a window named 0 is common)
+
+
 0.01    So 9. Aug 23:03:15 CEST 2009
         First version, released on an unsuspecting world.
 
