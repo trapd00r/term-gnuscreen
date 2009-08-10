@@ -58,7 +58,7 @@ sub BUILD {
 	my ($self) = @_;
 	if ($self->create) {
 		if (!$self->session) {
-			$self->session = "term_gnuscreen.$$" . int(rand(10000));
+			$self->session("term_gnuscreen.$$" . int(rand(10000)));
 		}
 		$self->call_screen('-m','-d');
 	}
@@ -70,11 +70,11 @@ sub send_command {
 }
 
 sub call_screen {
-	my ($self,@paramter) = @_;
+	my ($self,@parameter) = @_;
 	my @screencmd = ( $self->executable );
 	push @screencmd, '-S', $self->session if $self->session;
 	push @screencmd, '-p', $self->window if $self->window;
-	push @screencmd, @paramter;
+	push @screencmd, @parameter;
 
 	my ($stdout,$stderr);
 	eval { 
@@ -183,7 +183,9 @@ functions are implemented by this method.
 =head2 hardcopy
 
 Write a hardcopy of the current window to a temporary file and returns
-the filename unless the filename is supplied as first argument.
+the filename unless the filename is supplied as first argument. If
+the supplied filename is not absolute, the file is written relative to
+C<hardcopydir>.
 
 =head1 ERROR HANDLING
 
