@@ -32,10 +32,9 @@ CONSTRUCTION
         execution.
 
     window
-        Preselects a window to send a command via the a specific window. If
-        undefined all commands are executed in the context of the current
-        window. See *-p* option for screen for a further discussion of this
-        argument.
+        Preselects a window to send a command via the a specific window.
+        Defaults to 0. See *-p* option for screen for a further discussion
+        of this argument.
 
     executable
         Return or set the screen binary to call. Defaults to the binary
@@ -53,6 +52,7 @@ METHODS
     *s* ( sbind, smeta, schdir, sexec and sumas ) to distinguish them from
     the built-ins with the same name.
 
+  call_screen
     This command is the working horse of Term::GnuScreen. It simply builds
     the command line to call and execute it.
 
@@ -62,7 +62,9 @@ METHODS
 
   hardcopy
     Write a hardcopy of the current window to a temporary file and returns
-    the filename unless the filename is supplied as first argument.
+    the filename unless the filename is supplied as first argument. If the
+    supplied filename is not absolute, the file is written relative to
+    "hardcopydir".
 
 ERROR HANDLING
     Simple dies in case screen -X did not return with a return value of

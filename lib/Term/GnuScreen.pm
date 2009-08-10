@@ -50,7 +50,7 @@ BEGIN {
 }
 
 has session    => (is => 'rw', isa => 'Str' );
-has window     => (is => 'rw', isa => 'Str' );
+has window     => (is => 'rw', isa => 'Str', default => 0 );
 has executable => (is => 'rw', isa => 'Str', default => sub { which("screen") } );
 has create     => (is => 'ro', isa => 'Bool', default => 0 );
 has debugging  => (is => 'rw', isa => 'Bool', default => 0 );
@@ -150,9 +150,8 @@ The newly created session will not be terminated after programm execution.
 
 =item window
 
-Preselects a window to send a command via the a specific window. If
-undefined all commands are executed in the context of the current
-window. See I<-p> option for screen for a further discussion of this
+Preselects a window to send a command via the a specific window. Defaults
+to 0. See I<-p> option for screen for a further discussion of this
 argument.
 
 =item executable
