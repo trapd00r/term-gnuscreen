@@ -53,6 +53,7 @@ has session    => (is => 'rw', isa => 'Str' );
 has window     => (is => 'rw', isa => 'Str' );
 has executable => (is => 'rw', isa => 'Str', default => sub { which("screen") } );
 has create     => (is => 'ro', isa => 'Bool', default => 0 );
+has debugging  => (is => 'rw', isa => 'Bool', default => 0 );
 
 sub BUILD {
 	my ($self) = @_;
@@ -75,6 +76,10 @@ sub call_screen {
 	push @screencmd, '-S', $self->session if $self->session;
 	push @screencmd, '-p', $self->window if $self->window;
 	push @screencmd, @parameter;
+
+	if ($self->debugging) {
+		print STDERR "Command: " . join(" ",@screencmd) . "\n";
+	}
 
 	my ($stdout,$stderr);
 	eval { 
