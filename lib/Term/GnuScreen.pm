@@ -170,7 +170,7 @@ The five commands bind, meta, chdir, exec and umask are prefixed with a
 I<s> ( sbind, smeta, schdir, sexec and sumas ) to distinguish them from
 the built-ins with the same name.
 
-=head call_screen
+=head2 call_screen
 
 This command is the working horse of Term::GnuScreen. It simply builds
 the command line to call and execute it.
