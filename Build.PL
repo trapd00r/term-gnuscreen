@@ -19,6 +19,9 @@ my $builder = Module::Build->new(
     add_to_cleanup     => ['Term-GnuScreen-*'],
     create_makefile_pl => 'traditional',
     create_readme      => 1,
+    meta_merge         => {
+        resources => { repository => 'http://github.com/mdom/term-gnuscreen', },
+    }
 );
 
 $builder->create_build_script();
