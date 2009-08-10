@@ -1,5 +1,9 @@
 Revision history for Term-GnuScreen
 
+0.03	Mo 10. Aug 13:46:57 CEST 2009
+	added github respository to META.yml
+	added dependency for IPC::System::Simple as autodies relies on it when using :all
+
 0.02	Mo 10. Aug 11:59:36 CEST 2009
 	clarify documentation on the five built-ins
 	added construction parameter 'create'

@@ -7,7 +7,7 @@ use autodie qw(:all);
 use File::Which;
 use IO::CaptureOutput qw(capture);
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 BEGIN {
 
