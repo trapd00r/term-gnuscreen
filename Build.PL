@@ -14,6 +14,7 @@ my $builder = Module::Build->new(
         autodie             => 0,
         'File::Which'       => 0,
         'IO::CaptureOutput' => 0,
+	'IPC::System::Simple' => 0,
     },
     build_requires     => { 'Test::More' => 0, },
     add_to_cleanup     => ['Term-GnuScreen-*'],
