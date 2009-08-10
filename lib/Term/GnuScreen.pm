@@ -50,8 +50,8 @@ BEGIN {
 }
 
 has session    => (is => 'rw', isa => 'Str' );
-has window     => (is => 'rw', isa => 'Str', default => 0 );
-has executable => (is => 'rw', isa => 'Str', default => sub { which("screen") } );
+has window     => (is => 'rw', isa => 'Str',  default => '0' );
+has executable => (is => 'rw', isa => 'Str',  default => sub { which("screen") } );
 has create     => (is => 'ro', isa => 'Bool', default => 0 );
 has debugging  => (is => 'rw', isa => 'Bool', default => 0 );
 
@@ -73,8 +73,8 @@ sub send_command {
 sub call_screen {
 	my ($self,@parameter) = @_;
 	my @screencmd = ( $self->executable );
-	push @screencmd, '-S', $self->session if $self->session;
-	push @screencmd, '-p', $self->window if $self->window;
+	push @screencmd, '-S', $self->session if defined $self->session;
+	push @screencmd, '-p', $self->window  if defined $self->window;
 	push @screencmd, @parameter;
 
 	if ($self->debugging) {
