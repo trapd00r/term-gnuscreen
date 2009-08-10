@@ -52,16 +52,33 @@ BEGIN {
 has session    => (is => 'rw', isa => 'Str' );
 has window     => (is => 'rw', isa => 'Str' );
 has executable => (is => 'rw', isa => 'Str', default => sub { which("screen") } );
+has create     => (is => 'ro', isa => 'Bool', default => 0 );
+
+sub BUILD {
+	my ($self) = @_;
+	if ($self->create) {
+		if (!$self->session) {
+			$self->session = "term_gnuscreen.$$" . int(rand(10000));
+		}
+		$self->call_screen('-m','-d');
+	}
+}
 
 sub send_command {
 	my ($self,$cmd,@args) = @_;
+	$self->call_screen('-X', $cmd, @args) if $cmd;
+}
+
+sub call_screen {
+	my ($self,@paramter) = @_;
 	my @screencmd = ( $self->executable );
 	push @screencmd, '-S', $self->session if $self->session;
 	push @screencmd, '-p', $self->window if $self->window;
+	push @screencmd, @paramter;
 
 	my ($stdout,$stderr);
 	eval { 
-		capture { system(@screencmd, '-X', $cmd, @args) } \$stdout, \$stderr;
+		capture { system(@screencmd) } \$stdout, \$stderr;
 		1;
 	} or do {
 		my $err;# = $!;
@@ -105,6 +122,41 @@ session via its command line interface.
     $screen->windowlist;
     $screen->hardcopy('/tmp/my_hardcopy');
 
+=head1 CONSTRUCTION
+
+=over 4
+
+=item session
+
+Sets the name of the screen session to send commands to. If you also
+set C<create> to a true value, this will become the new name of your
+screen session. See I<-S> option for screen for a further discussion of
+this argument.
+
+=item create
+
+If create is set to a true value, a new screen session is created
+and detached automatically. If you do not provide a session name,
+this module generates one by calling C<"term_gnuscreen" . $$
+. int(rand(10000))>. Settings this value after object creation has no
+effect at the moment.
+
+The newly created session will not be terminated after programm execution.
+
+=item window
+
+Preselects a window to send a command via the a specific window. If
+undefined all commands are executed in the context of the current
+window. See I<-p> option for screen for a further discussion of this
+argument.
+
+=item executable
+
+Return or set the screen binary to call. Defaults to the binary found
+by File::Which::which.
+
+=back
+
 =head1 METHODS
 
 Term::GnuScreen implements all commands as stated in the texinfo document
@@ -112,36 +164,26 @@ shipped with GNU screen. To call a commands, it's send via GNU screens -X
 paramter to the first running screen session and its current window. You
 can change session and window with the according object methods and
 construction paramters. Unless listed here, all remaining arguments are
-handled over to screen.
+handled over to screen without further modification.
 
 The five commands bind, meta, chdir, exec and umask are prefixed with a
 I<s> ( sbind, smeta, schdir, sexec and sumas ) to distinguish them from
 the built-ins with the same name.
 
+=head call_screen
+
+This command is the working horse of Term::GnuScreen. It simply builds
+the command line to call and execute it.
+
 =head2 send_command
 
-This command is the working horse of Term::GnuScreen. It simply build
-the command line to call and add all the supplied arguments to screens -X.
+Calls call_screen with the I<-X> and all supplied paramters. Most
+functions are implemented by this method.
 
 =head2 hardcopy
 
 Write a hardcopy of the current window to a temporary file and returns
 the filename unless the filename is supplied as first argument.
-
-=head2 session
-
-Change the default session for all further commands.
-
-=head2 window
-
-Preselect a window to send a command via the a specific window. If
-undefined all commands are executed in the context of the current
-window. See I<-p> option for a further discussion of this argument.
-
-=head2 executable
-
-Return or set the screen binary to call. Defaults to the binary found
-by File::Which::which.
 
 =head1 ERROR HANDLING
 
