@@ -2,7 +2,7 @@ NAME
     Term::GnuScreen - Control GNU screen via perl
 
 VERSION
-    Version 0.02
+    Version 0.03
 
 SYNOPSIS
     Term::GnuScreen provides a simple interface to control a GNU screen
